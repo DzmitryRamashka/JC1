@@ -41,5 +41,9 @@ public class MainTest {
 
         Assert.assertEquals(driver.findElement(By.xpath("//div[@class='country']")).getText(),"Germany");
         Assert.assertEquals(driver.findElement(By.xpath("//div[@class='currency']/span")).getText(),"EUR");
+
+        driver.close();
     }
+
+
 }
