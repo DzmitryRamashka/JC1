@@ -4,17 +4,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
 
 public class MainTest {
-
+    String baseUrl = "https://litecart.stqa.ru/en/";
     @Test
     void regionalSettings() {
-
-        String baseUrl = "https://litecart.stqa.ru/en/";
 
         WebDriver driver = new ChromeDriver();
 
@@ -44,6 +43,27 @@ public class MainTest {
 
         driver.close();
     }
+    @Test
+    void rubberDucksMenu() {
 
+        WebDriver driver = new ChromeDriver();
 
+        driver.get(baseUrl);
+
+        WebElement rubberDucks = driver.findElement(By.xpath("//nav[@id='site-menu']/ul/li[2]/a"));
+
+        Actions builder = new Actions(driver);
+
+        builder.moveToElement(rubberDucks).perform();
+
+        WebElement menuItem1 = driver.findElement(By.xpath("//li[@class='category-2']/a"));
+
+        builder.moveToElement(menuItem1).perform();
+
+        menuItem1.click();
+
+        Assert.assertEquals(driver.getTitle(),"Subcategory | My Store");
+
+        driver.close();
+    }
 }
