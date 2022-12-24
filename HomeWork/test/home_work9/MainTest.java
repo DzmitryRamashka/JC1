@@ -32,7 +32,7 @@ public class MainTest {
     }
 
     @Test
-    void AlertTest()
+    void checkAlert()
     {
         WebDriver driver = new ChromeDriver();
 
@@ -48,6 +48,8 @@ public class MainTest {
         Assert.assertEquals(alertText, "I am a JS Alert");
 
         alert.accept();
+
+        driver.close();
 
     }
 
