@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import java.util.List;
 
 public class MainTest {
@@ -32,14 +31,20 @@ public class MainTest {
     }
 
     @Test
-    void checkAlert()
+    void checkAlerts()
     {
         WebDriver driver = new ChromeDriver();
 
         driver.get(baseUrl);
 
-        driver.findElement(By.xpath("//div[@id='content']/ul/li[29]/a")).click();
-        driver.findElement(By.xpath("//div[@id='content']/div/ul/li[1]/button")).click();
+        WebElement alertLink = driver.findElement(By.xpath("//div[@id='content']/ul/li[29]/a"));
+
+        alertLink.click();
+
+        WebElement alertBtn = driver.findElement(By.xpath("//div[@id='content']/div/ul/li[1]/button"));
+        WebElement confirmBtn = driver.findElement(By.xpath("//div[@id='content']/div/ul/li[2]/button"));
+
+        alertBtn.click();
 
         Alert alert = driver.switchTo().alert();
 
@@ -49,8 +54,27 @@ public class MainTest {
 
         alert.accept();
 
-        driver.close();
+        Assert.assertEquals(driver.findElement(By.xpath("//p[@id='result']")).getText(), "You successfully clicked an alert");
 
+        confirmBtn.click();
+
+        String confirmText = alert.getText();
+
+        Assert.assertEquals(confirmText, "I am a JS Confirm");
+
+        alert.dismiss();
+
+        Assert.assertEquals(driver.findElement(By.xpath("//p[@id='result']")).getText(), "You clicked: Cancel");
+
+        confirmBtn.click();
+
+        Assert.assertEquals(confirmText, "I am a JS Confirm");
+
+        alert.accept();
+
+        Assert.assertEquals(driver.findElement(By.xpath("//p[@id='result']")).getText(), "You clicked: Ok");
+
+        driver.close();
     }
 
 }
