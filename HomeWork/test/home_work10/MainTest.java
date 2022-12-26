@@ -44,7 +44,7 @@ public class MainTest {
         driver.close();
     }
     @Test
-    void rubberDucksMenu() {
+    void siteMenu() {
 
         WebDriver driver = new ChromeDriver();
 
@@ -56,7 +56,7 @@ public class MainTest {
 
         builder.moveToElement(rubberDucks).perform();
 
-        WebElement menuItem1 = driver.findElement(By.xpath("//li[@class='category-2']/a"));
+        WebElement menuItem1 = driver.findElement(By.xpath("//nav[@id='site-menu']/ul/li[2]/ul/li/a"));
 
         builder.moveToElement(menuItem1).perform();
 
@@ -68,17 +68,24 @@ public class MainTest {
     }
 
     @Test
-    void subCategoryInList() {
+    void leftNavigation() {
         WebDriver driver = new ChromeDriver();
 
         driver.get(baseUrl);
 
-        WebElement rubberDucksInList = driver.findElement(By.xpath("//li[@class='category-1']/a"));
+        WebElement rubberDucksInList = driver.findElement(By.xpath("//ul[@class='list-vertical']/li/a"));
 
         rubberDucksInList.click();
 
         Assert.assertEquals(driver.getTitle(),"Rubber Ducks | My Store");
 
+        WebElement subInList = driver.findElement(By.xpath("//ul[@class='list-vertical']/li/ul/li/a"));
+
+        subInList.click();
+
+        Assert.assertEquals(driver.getTitle(),"Subcategory | My Store");
+
         driver.close();
+
     }
 }
