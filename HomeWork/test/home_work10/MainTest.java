@@ -66,4 +66,19 @@ public class MainTest {
 
         driver.close();
     }
+
+    @Test
+    void subCategoryInList() {
+        WebDriver driver = new ChromeDriver();
+
+        driver.get(baseUrl);
+
+        WebElement rubberDucksInList = driver.findElement(By.xpath("//li[@class='category-1']/a"));
+
+        rubberDucksInList.click();
+
+        Assert.assertEquals(driver.getTitle(),"Rubber Ducks | My Store");
+
+        driver.close();
+    }
 }
