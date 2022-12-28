@@ -7,8 +7,9 @@ public class HomeTest extends BaseTest{
     @Test
     public void dragAndDropLinkTest() {
 
-        HomePage homePage = new HomePage(driver);
-        DragAndDropPage dragAndDropPage = new DragAndDropPage(driver);
+        HomePage homePage = new HomePage();
+        DragAndDropPage dragAndDropPage = new DragAndDropPage();
+
 
         homePage.clickDragAndDropLink();
 
